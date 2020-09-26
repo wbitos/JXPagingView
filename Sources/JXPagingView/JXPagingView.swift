@@ -28,6 +28,8 @@ import UIKit
     ///   - index: 新生成的列表实例
     func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate
 
+    func pagingView(_ pagingView: JXPagingView, didShowListAtIndex index: Int)
+    
     /// 将要被弃用！请使用pagingView(_ pagingView: JXPagingView, mainTableViewDidScroll scrollView: UIScrollView) 方法作为替代。
     @available(*, message: "Use pagingView(_ pagingView: JXPagingView, mainTableViewDidScroll scrollView: UIScrollView) method")
     @objc optional func mainTableViewDidScroll(_ scrollView: UIScrollView)
@@ -390,6 +392,7 @@ extension JXPagingView: JXPagingListContainerViewDelegate {
                 listItem.listScrollView().scrollsToTop = false
             }
         }
+        self.delegate?.pagingView(self, didShowListAtIndex: index)
     }
 }
 
