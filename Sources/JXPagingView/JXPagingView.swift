@@ -249,6 +249,12 @@ open class JXPagingView: UIView {
         currentScrollingListView = scrollView
         preferredProcessListViewDidScroll(scrollView: scrollView)
     }
+    
+    open func select(itemAt index: Int, animated: Bool) {
+        let contentScrollView = self.listContainerView.contentScrollView()
+        contentScrollView.setContentOffset(CGPoint(x: contentScrollView.bounds.size.width*CGFloat(index), y: 0), animated: animated)
+        self.listContainerView.didClickSelectedItem(at: index)
+    }
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
