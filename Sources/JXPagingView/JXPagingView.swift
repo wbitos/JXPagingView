@@ -123,7 +123,7 @@ open class JXPagingView: UIView {
         listContainerView.reloadData()
     }
 
-    open func resizeTableHeaderViewHeight(animatable: Bool = false, duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear) {
+    open func resizeTableHeaderViewHeight(animatable: Bool = false, duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear, complete: ((Bool) -> Void)? = nil) {
         guard let delegate = delegate else { return }
         if animatable {
             var options: UIView.AnimationOptions = .curveLinear
@@ -140,12 +140,13 @@ open class JXPagingView: UIView {
                 self.mainTableView.tableHeaderView = self.tableHeaderContainerView
                 self.mainTableView.setNeedsLayout()
                 self.mainTableView.layoutIfNeeded()
-            }, completion: nil)
+            }, completion: complete)
         }else {
             var bounds = tableHeaderContainerView.bounds
             bounds.size.height = CGFloat(delegate.tableHeaderViewHeight(in: self))
             tableHeaderContainerView.frame = bounds
             mainTableView.tableHeaderView = tableHeaderContainerView
+            complete?(true)
         }
     }
 
